@@ -45,18 +45,17 @@ public class AireGraphique extends JComponent {
 		drawable.clearRect(0, 0, getWidth(), getHeight());
 		
 		// On dessine le pousseur
-		System.out.println("Drawing aire here : "+aire.getPositionX()+", "+aire.getPositionY());
+		System.out.println("Drawing aire here : "+aire.getPoisonColonne()+", "+aire.getPoisonLigne());
 		// On dessine les murs
 		int[][] grille = aire.getGrille();
 		for (int j = 0; j < aire.getNbColonnes(); j++) {
 			for (int i = 0; i < aire.getNbLignes(); i++) {
-				System.out.println("("+grille[i][j]+")");
 				switch(grille[i][j]) {
 				    case 1:
 						drawable.drawImage(gaufre, j*width_case, i*height_case, width_case, height_case, null);
 						break;
 					case 2:
-						drawable.drawImage(poison, aire.getPositionX(), aire.getPositionY(), width_case, height_case, null);
+						drawable.drawImage(poison, aire.getPoisonColonne(), aire.getPoisonLigne(), width_case, height_case, null);
 						break;
 					case 0:
 						drawable.clearRect(j*width_case, i*height_case, width_case, height_case);//getWidth()-j*width_case, getHeight()-i*height_case);

@@ -20,6 +20,7 @@ public class InterfaceGraphique implements Runnable {
 		ControleurMediateur control = new ControleurMediateur(aire_jeu, aire_graphique);
 		aire_graphique.setFocusable(true);
 		aire_graphique.addMouseListener(new EcouteurSourisAire(control));
+		aire_graphique.addKeyListener(new EcouteurClavier(control));
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(700, 600);
