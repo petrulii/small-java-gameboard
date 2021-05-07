@@ -20,7 +20,7 @@ public class AireGraphique extends JComponent {
 			System.out.println("J'arrive pas a construire les images." + "Images" + File.separator + nom + ".png");
 			System.exit(1);
 		}
-		System.out.println("Construceur aire ici.");
+		//System.out.println("Construceur aire ici.");
 		return img;
 	}
 
@@ -41,12 +41,8 @@ public class AireGraphique extends JComponent {
 		int height_case = getCaseHeight();
 
 		// On efface tout
-		System.out.println("Efface tout ici.");
 		drawable.clearRect(0, 0, getWidth(), getHeight());
 		
-		// On dessine le pousseur
-		System.out.println("Drawing aire here : "+aire.getPoisonColonne()+", "+aire.getPoisonLigne());
-		// On dessine les murs
 		int[][] grille = aire.getGrille();
 		for (int j = 0; j < aire.getNbColonnes(); j++) {
 			for (int i = 0; i < aire.getNbLignes(); i++) {

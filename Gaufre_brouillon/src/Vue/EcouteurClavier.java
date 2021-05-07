@@ -23,6 +23,9 @@ public class EcouteurClavier extends KeyAdapter {
 			case KeyEvent.VK_E:
 				control.toucheE();
 				break;
+			case KeyEvent.VK_I:
+				control.toucheI();
+				break;
 		}
 	}
 }

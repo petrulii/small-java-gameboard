@@ -120,7 +120,7 @@ public class AireJeu {
 		for (int i = 0; i < nb_lignes; i++) {
 			for (int j = 0; j < nb_colonnes; j++) {
 				if (grille[i][j] != 0 && !((i == poison_ligne) && (j == poison_colonne))) {
-					System.out.println("Grille[i][j] : "+grille[i][j]+", i : "+i+", j : "+j+".");
+					//System.out.println("Grille[i][j] : "+grille[i][j]+", i : "+i+", j : "+j+".");
 					res = false;
 				}
 			}
@@ -189,6 +189,22 @@ public class AireJeu {
 			System.out.print(c.toString() + " ");
 		}
 		System.out.println(")");
+	}
+	
+	/**
+	 * Dit si l'annulation d'un coup est possible coups annules
+	 * @return vrai s'il y a des coups a annuler, faux sinon
+	 */
+	public boolean annulationCoupPossible() {
+		return (!coups.isEmpty());
+	}
+	
+	/**
+	 * Dit si c'est possible de refaire un coup
+	 * @return vrai s'il y a des coups annules, faux sinon
+	 */
+	public boolean refaireCoupPossible() {
+		return (!coups_annules.isEmpty());
 	}
 
 }
