@@ -33,7 +33,7 @@ public class AireJeu {
 				grille[i][j] = 1;
 			}
 		}
-		grille[poison_colonne][poison_ligne] = 2;
+		grille[poison_ligne][poison_colonne] = 2;
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class AireJeu {
 	 * @return vrai si le jeu est termine, faux sinon
 	 */
 	public boolean gameOver() {
-		boolean res = true;
+		/*boolean res = true;
 		for (int i = 0; i < nb_lignes; i++) {
 			for (int j = 0; j < nb_colonnes; j++) {
 				if (grille[i][j] != 0 && !((i == poison_ligne) && (j == poison_colonne))) {
@@ -124,8 +124,8 @@ public class AireJeu {
 					res = false;
 				}
 			}
-		}
-		return res;
+		}*/
+		return (grille[poison_ligne][poison_colonne] == 0);
 	}
 	
 	/**
