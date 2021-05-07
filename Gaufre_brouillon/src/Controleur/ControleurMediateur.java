@@ -37,11 +37,11 @@ public class ControleurMediateur {
 			aire_jeu.creerCoup(ligne, colonne);
 			System.out.println("Joueur "+joueur+" viens de jouer.");
 			aire_graphique.repaint();
-			if (joueur == 1) { joueur = 2; } else joueur = 1;		// on change de joueur
 			if (aire_jeu.gameOver()) {
 				System.out.println("Game Over! Le joueur "+joueur+" a perdu.");
 				System.exit(0);
 			}
+			if (joueur == 1) { joueur = 2; } else joueur = 1;		// on change de joueur
 		}
 		if (ia != null && active_IA == joueur) {					// on lance le coup d'IA
 			joueIA();
