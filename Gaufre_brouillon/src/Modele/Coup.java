@@ -15,6 +15,15 @@ public class Coup {
 	}
 	
 	/**
+	 * Clone d'un coup
+	 * @param le coup a cloner
+	 * @return un clone d'un coup
+	 */
+	public Coup clone() {
+		return new Coup(this.ligne, this.colonne);
+	}
+	
+	/**
 	 * Affichage d'un coup
 	 * @return une chaine de caracteres decrivant le coup
 	 */

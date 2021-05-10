@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class AireJeu {
 	int nb_lignes = 0;
 	int nb_colonnes = 0;
-	public int[][] grille;		// 0 - vide, 1 - gaufre, 2 - poison
+	public int[][] grille;		// 0 - case vide, 1 - case gaufre, 2 - case poison
 	int poison_colonne = 0;
 	int poison_ligne = 0;
 	/**

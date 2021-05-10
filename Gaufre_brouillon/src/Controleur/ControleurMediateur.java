@@ -13,7 +13,7 @@ import Vue.AireGraphique;
 public class ControleurMediateur {
 	AireJeu aire_jeu;
 	AireGraphique aire_graphique;
-	AleatoireIA ia;
+	EtOuIA ia;
 	int active_IA = 0;		// 0 - desactiver, 1 - joue premier joueur, 2 - joue deuxieme joueur
 	int joueur;				// 1 - premier joueur, 2 - deuxieme joueur
 
@@ -80,7 +80,7 @@ public class ControleurMediateur {
      * Active l'IA.
      */
     public void toucheI() {
-		ia = new AleatoireIA(aire_jeu);
+		ia = new EtOuIA(aire_jeu);//new AleatoireIA(aire_jeu);
 		active_IA = joueur;
 		joueIA();
 	}
