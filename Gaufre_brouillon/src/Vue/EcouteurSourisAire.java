@@ -14,6 +14,6 @@ public class EcouteurSourisAire extends MouseAdapter {
 	@Override
 	public void mousePressed(MouseEvent event) {
 		//System.out.println("Mouse clicked (" + event.getX() + "," + event.getY() + ")");
-		control.toucheSouris(event.getX(), event.getY());
+		control.instructionSouris("Jouer", event.getX(), event.getY());
 	}
 }

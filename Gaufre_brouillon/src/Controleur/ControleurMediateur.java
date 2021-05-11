@@ -24,65 +24,77 @@ public class ControleurMediateur {
 	}
 
     /**
-     * Joue un coup dans la case ou joueur a clicke.
+     * Effectue une instruction donne apres un click souris.
+	 * @param l'instruction a effectuer
 	 * @param l'entier coordone x de fenetre graphique
 	 * @param l'entier coordone y de fenetre graphique
      */
-    public void toucheSouris(int x, int y) {
-		int ligne = y/aire_graphique.getCaseHeight();
-		int colonne = x/aire_graphique.getCaseWidth();
-		if (!aire_jeu.coupValide(ligne, colonne)) {
-			System.out.println("Le coup de joueur "+joueur+" n'est pas valide, rejoue!");
-		} else {
-			aire_jeu.creerCoup(ligne, colonne);
-			System.out.println("Joueur "+joueur+" viens de jouer.");
-			aire_graphique.repaint();
-			if (aire_jeu.gameOver()) {
-				System.out.println("Game Over! Le joueur "+joueur+" a perdu.");
-				System.exit(0);
-			}
-			if (joueur == 1) { joueur = 2; } else joueur = 1;		// on change de joueur
-		}
-		if (ia != null && active_IA == joueur) {					// on lance le coup d'IA
-			joueIA();
-		}
+    public void instructionSouris(String instruction, int x, int y) {
+		switch (instruction) {							// "Jouer"
+			case "Jouer":		// Joue un coup dans la case ou joueur a clicke.
+				int ligne = y/aire_graphique.getCaseHeight();
+				int colonne = x/aire_graphique.getCaseWidth();
+				if (!aire_jeu.coupValide(ligne, colonne)) {
+					System.out.println("Le coup de joueur "+joueur+" n'est pas valide, rejoue!");
+				} else {
+					aire_jeu.creerCoup(ligne, colonne);
+					System.out.println("Joueur "+joueur+" viens de jouer.");
+					aire_graphique.repaint();
+					if (aire_jeu.gameOver()) {
+						System.out.println("Game Over! Le joueur "+joueur+" a perdu.");
+						System.exit(0);
+					}
+					if (joueur == 1) { joueur = 2; } else joueur = 1;		// on change de joueur
+				}
+				if (ia != null && active_IA == joueur) {					// on lance le coup d'IA
+					joueIA();
+				}
+				break;
+			default:
+				System.out.println("Le controleur ne connait pas cette instruction souris.");
+		}		
 	}
 
     /**
-     * Refait un coup.
+     * Effectue une instruction donne apres un click d'un touche clavier.
+	 * @param l'instruction a effectuer
      */
-    public void toucheR() {
-		if (aire_jeu.refaireCoupPossible() && active_IA == 0) {
-			aire_jeu.refaireCoup();
-			System.out.println("On refait le coup de joueur "+joueur+".");
-			if (joueur == 1) { joueur = 2; } else joueur = 1;		// on change de joueur
-			aire_graphique.repaint();
-		} else {
-			System.out.println("Il y a pas de coup a refaire.");
+    public void instructionClavier(String instruction) {
+		switch (instruction) {							// "Refaire", "Annuler", "Activer IA"
+			case "Refaire":		// Refait un coup.
+				if (aire_jeu.refaireCoupPossible() && active_IA == 0) {
+					aire_jeu.refaireCoup();
+					System.out.println("On refait le coup de joueur "+joueur+".");
+					if (joueur == 1) { joueur = 2; } else joueur = 1;		// on change de joueur
+					aire_graphique.repaint();
+				} else {
+					System.out.println("Il y a pas de coup a refaire.");
+				}
+				break;
+			case "Annuler":		// Annule un coup.
+				if (aire_jeu.annulationCoupPossible() && active_IA == 0) {
+					aire_jeu.annulerCoup();
+					if (joueur == 1) { joueur = 2; } else joueur = 1;		// on change de joueur
+					System.out.println("On annule le coup de joueur "+joueur+".");
+					aire_graphique.repaint();
+				} else {
+					System.out.println("Annule coup impossible.");
+				}
+				break;
+			case "Activer IA":		// Active le joueur IA.
+				ia = new EtOuIA(aire_jeu);//new AleatoireIA(aire_jeu);
+				active_IA = joueur;
+				joueIA();
+				break;
+			case "Exporter":		// Exporter historique coups.
+				aire_jeu.sauvegarderHistoriqueCoups();
+				break;
+			case "Imorter":			// Importer historique coups.
+				ArrayList<Coup> historique = aire_jeu.chargeHistoriqueCoups(null);
+				break;
+			default:
+				System.out.println("Le controleur ne connait pas cette instruction clavier.");
 		}
-	}
-
-    /**
-     * Annule un coup.
-     */
-    public void toucheA() {
-		if (aire_jeu.annulationCoupPossible() && active_IA == 0) {
-			aire_jeu.annulerCoup();
-			if (joueur == 1) { joueur = 2; } else joueur = 1;		// on change de joueur
-			System.out.println("On annule le coup de joueur "+joueur+".");
-			aire_graphique.repaint();
-		} else {
-			System.out.println("Annule coup impossible.");
-		}
-	}
-
-    /**
-     * Active l'IA.
-     */
-    public void toucheI() {
-		ia = new EtOuIA(aire_jeu);//new AleatoireIA(aire_jeu);
-		active_IA = joueur;
-		joueIA();
 	}
 
     /**
@@ -90,21 +102,7 @@ public class ControleurMediateur {
      */
     public void joueIA() {
 		Coup coup_ia = ia.donneCoup();
-		toucheSouris(coup_ia.getColonne()*aire_graphique.getCaseWidth(), coup_ia.getLigne()*aire_graphique.getCaseHeight());
+		instructionSouris("Jouer", coup_ia.getColonne()*aire_graphique.getCaseWidth(), coup_ia.getLigne()*aire_graphique.getCaseHeight());
 	}
-
-	/**
-	 * Exporter historique coups.
-	 */
-	public void toucheE() {
-		aire_jeu.sauvegarderHistoriqueCoups();
-	}
-
-	/**
-	 * Importer historique coups.
-	 * @param nom de fichier qui contient l'historique de coups a charger
-	 */
-	public void toucheM(String nom_fichier) {
-		ArrayList<Coup> historique = aire_jeu.chargeHistoriqueCoups(nom_fichier);
-	}
+    
 }
