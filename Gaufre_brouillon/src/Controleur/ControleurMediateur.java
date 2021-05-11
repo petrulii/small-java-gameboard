@@ -1,6 +1,5 @@
 package Controleur;
 import java.util.ArrayList;
-
 import Modele.AireJeu;
 import Modele.Coup;
 import Vue.AireGraphique;
@@ -30,7 +29,7 @@ public class ControleurMediateur {
 	 * @param l'entier coordone y de fenetre graphique
      */
     public void instructionSouris(String instruction, int x, int y) {
-		switch (instruction) {							// "Jouer"
+		switch (instruction) {							// "Jouer", ...
 			case "Jouer":		// Joue un coup dans la case ou joueur a clicke.
 				int ligne = y/aire_graphique.getCaseHeight();
 				int colonne = x/aire_graphique.getCaseWidth();
@@ -47,7 +46,8 @@ public class ControleurMediateur {
 					if (joueur == 1) { joueur = 2; } else joueur = 1;		// on change de joueur
 				}
 				if (ia != null && active_IA == joueur) {					// on lance le coup d'IA
-					joueIA();
+					Coup coup_ia = ia.donneCoup();
+					CoupLentIA l = new CoupLentIA(this, "Jouer", coup_ia.getColonne()*aire_graphique.getCaseWidth(), coup_ia.getLigne()*aire_graphique.getCaseHeight());
 				}
 				break;
 			default:
@@ -84,7 +84,8 @@ public class ControleurMediateur {
 			case "Activer IA":		// Active le joueur IA.
 				ia = new EtOuIA(aire_jeu);//new AleatoireIA(aire_jeu);
 				active_IA = joueur;
-				joueIA();
+				Coup coup_ia = ia.donneCoup();
+				instructionSouris("Jouer", coup_ia.getColonne()*aire_graphique.getCaseWidth(), coup_ia.getLigne()*aire_graphique.getCaseHeight());
 				break;
 			case "Exporter":		// Exporter historique coups.
 				aire_jeu.sauvegarderHistoriqueCoups();
@@ -95,14 +96,6 @@ public class ControleurMediateur {
 			default:
 				System.out.println("Le controleur ne connait pas cette instruction clavier.");
 		}
-	}
-
-    /**
-     * L'IA joue.
-     */
-    public void joueIA() {
-		Coup coup_ia = ia.donneCoup();
-		instructionSouris("Jouer", coup_ia.getColonne()*aire_graphique.getCaseWidth(), coup_ia.getLigne()*aire_graphique.getCaseHeight());
 	}
     
 }

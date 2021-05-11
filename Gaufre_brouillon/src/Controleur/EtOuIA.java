@@ -25,10 +25,8 @@ public class EtOuIA implements IA {
      * @param un grille qui represente un configuration d'un plateau de jeu
      */
     public boolean donneCoupRec(int[][] configuration) {
-		System.out.println("Coup A ici.");
 		boolean valeur = false;
    		if (configuration[0][0] == 0) {
-   			System.out.println("Dans A poison est mange.");
    			return true;
    		} else {
    			ArrayList<Coup> coups_jouables = coupsJouables(configuration);
@@ -46,7 +44,6 @@ public class EtOuIA implements IA {
      * @param un grille qui represente un configuration d'un plateau de jeu
      */
     public boolean donneCoupRecOpponent(int[][] configuration) {
-		System.out.println("Coup B ici.");
 		boolean valeur = false;
    		if (configuration[0][0] == 0) {
    			return false;
